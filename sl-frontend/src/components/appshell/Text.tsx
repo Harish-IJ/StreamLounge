@@ -2,24 +2,15 @@ import { cn } from "@/lib/utils";
 import React from "react";
 import { Button } from "../ui/button";
 
-type Props = {
-  className?: string;
+type IconButtonProps = React.ComponentProps<typeof Button> & {
   icon?: React.ReactNode;
-  children?: React.ReactNode;
-  variant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link";
-  size?: "default" | "sm" | "lg" | "icon";
-  onClick?: () => void;
 };
 
-const IconButton = (props: Props) => {
+const IconButton: React.FC<IconButtonProps> = ({ icon, className, children, ...buttonProps }) => {
   return (
-    <Button
-      onClick={props.onClick}
-      variant={props.variant}
-      size={props.size}
-      className={(cn(props.className), "flex items-center gap-2")}>
-      {props.icon}
-      {props.children}
+    <Button {...buttonProps} className={cn("flex items-center gap-2", className)}>
+      {icon}
+      {children}
     </Button>
   );
 };

@@ -7,6 +7,9 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "../ui/button";
 import { useForm } from "react-hook-form";
 import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "../ui/dialog";
+import React from "react";
+import { InteractiveHoverButton } from "../magicui/interactive-hover-button";
+import { BorderBeam } from "../magicui/border-beam";
 
 const NAVS = [
   {
@@ -26,12 +29,12 @@ const NAVS = [
   },
 ];
 
-const NavCard = ({ className }: { className?: string }) => {
+const NavCard = (props: React.ComponentProps<"div">) => {
   // TODO: using react hook form get user name & ratings
   const { register, handleSubmit, formState, reset, control, setValue } = useForm();
   const navigate = useNavigate();
   return (
-    <Card className={cn(className)}>
+    <Card {...props} className={cn(props?.className)}>
       <CardHeader className="flex-row gap-0.5">
         <span className="font-bold">Stream</span>Lounge
       </CardHeader>
@@ -54,9 +57,7 @@ const NavCard = ({ className }: { className?: string }) => {
       <CardFooter className="mt-10 pb-2">
         <Dialog>
           <DialogTrigger asChild>
-            <Button size={"sm"} variant={"secondary"}>
-              Yourself
-            </Button>
+            <InteractiveHoverButton className="text-sm">Yourself</InteractiveHoverButton>
           </DialogTrigger>
           <DialogContent>
             <DialogTitle>Happy to see you hop around !!</DialogTitle>
@@ -64,6 +65,16 @@ const NavCard = ({ className }: { className?: string }) => {
               Enter any name you like & a honest rating with a review is always appreciated
             </DialogDescription>
             <form></form>
+            <BorderBeam
+              size={150}
+              initialOffset={15}
+              className="from-transparent via-yellove-500 to-transparent"
+              transition={{
+                type: "spring",
+                stiffness: 60,
+                damping: 20,
+              }}
+            />
           </DialogContent>
         </Dialog>
       </CardFooter>

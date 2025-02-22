@@ -1,8 +1,9 @@
 import { Outlet } from "react-router-dom";
+import NavCard from "./NavCard";
 
 const SideBar = () => {
   return (
-    <div>
+    <div className="m-4">
       <Outlet />
     </div>
   );
