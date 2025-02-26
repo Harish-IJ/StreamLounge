@@ -1,6 +1,5 @@
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
-import {FastAverageColor} from "fast-average-color";
 
 
 export function cn(...inputs: ClassValue[]) {
