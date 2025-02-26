@@ -4,8 +4,7 @@ import IconButton from "./Text";
 import { Heart, Home, Search } from "lucide-react";
 import { Separator } from "../ui/separator";
 import { useNavigate } from "react-router-dom";
-import { Button } from "../ui/button";
-import { useForm } from "react-hook-form";
+// import { useForm } from "react-hook-form";
 import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "../ui/dialog";
 import React from "react";
 import { InteractiveHoverButton } from "../magicui/interactive-hover-button";
@@ -31,7 +30,7 @@ const NAVS = [
 
 const NavCard = (props: React.ComponentProps<"div">) => {
   // TODO: using react hook form get user name & ratings
-  const { register, handleSubmit, formState, reset, control, setValue } = useForm();
+  // const { register, handleSubmit, formState, reset, control, setValue } = useForm();
   const navigate = useNavigate();
   return (
     <Card {...props} className={cn(props?.className)}>

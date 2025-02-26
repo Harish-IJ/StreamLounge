@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { Card, CardContent, CardHeader } from "../ui/card";
+import { Card } from "../ui/card";
 import { HTMLAttributes } from "react";
 
 const BlobedCard = (props: HTMLAttributes<HTMLDivElement>) => {
