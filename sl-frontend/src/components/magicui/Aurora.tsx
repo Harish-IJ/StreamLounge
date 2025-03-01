@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react";
 import { Renderer, Program, Mesh, Color, Triangle } from "ogl";
-import { cn } from "@/lib/utils";
 
 const VERT = `#version 300 es
 in vec2 position;
@@ -114,7 +113,6 @@ interface AuroraProps {
   blend?: number;
   time?: number;
   speed?: number;
-  classname?: string;
 }
 
 export default function Aurora(props: AuroraProps) {
@@ -208,5 +206,5 @@ export default function Aurora(props: AuroraProps) {
     };
   }, [amplitude]);
 
-  return <div ref={ctnDom} className={cn("w-full h-full", props.classname ?? "")} />;
+  return <div ref={ctnDom} className="w-full h-full" />;
 }

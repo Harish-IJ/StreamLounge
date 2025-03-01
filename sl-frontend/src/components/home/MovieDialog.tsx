@@ -48,7 +48,7 @@ const MovieDialog = ({ movie, imageClassName, ...props }: MovieDialogProps) => {
         </div>
       </DialogTrigger>
 
-      <DialogContent className="sm:max-w-[425px] md:max-w-[600px] lg:max-w-[800px]">
+      <DialogContent className="sm:max-w-[425px] md:max-w-[600px] lg:max-w-[800px] bg-background/80 backdrop-blur-sm">
         <motion.div
           layout
           initial={{ opacity: 0, y: 20, scale: 0.95 }}
@@ -57,7 +57,7 @@ const MovieDialog = ({ movie, imageClassName, ...props }: MovieDialogProps) => {
           transition={{ type: "spring", stiffness: 100, damping: 15 }}
           className="sm:max-w-[425px] md:max-w-[600px] lg:max-w-[800px]">
           {/* About Movie */}
-          <DialogTitle className="text-lg leading-none font-semibold">{movie.title}</DialogTitle>
+          <DialogTitle className="text-lg leading-none font-semibold mb-4">{movie.title}</DialogTitle>
           <div className="flex gap-6 w-full">
             <TiltedCard
               imageSrc={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}

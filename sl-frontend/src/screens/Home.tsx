@@ -2,7 +2,7 @@ import NavCard from "@/components/appshell/NavCard";
 import BlobedCard from "@/components/home/BlobedCard";
 import Showcase from "@/components/home/Showcase";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import axios from "axios";
 import { API_BASE_URL, API_HEADERS } from "@/constants/global-constants";
 import { Separator } from "@/components/ui/separator";
@@ -22,12 +22,13 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { useTheme } from "next-themes";
 import { motion } from "motion/react";
+import { truncater } from "@/lib/utils";
 
 const Home = () => {
   const [movies, setMovies] = React.useState<Movie[]>([]);
   const [search, setSearch] = React.useState<string>("");
+  const [topThree, setTopThree] = React.useState<Movie[]>([]);
   const [searchResults, setSearchResults] = React.useState<Movie[]>([]);
   React.useEffect(() => {
     axios
@@ -36,11 +37,17 @@ const Home = () => {
       ?.catch((err) => console.log(err));
   }, []);
 
+  React.useEffect(() => {
+    axios
+      .get(`${API_BASE_URL}/trending/all/day`, API_HEADERS)
+      ?.then((res) => setTopThree(res.data?.results))
+      ?.catch((err) => console.log(err));
+  }, []);
+
   const handleSearch = React.useCallback(
     debounce(async (query) => {
       try {
         const url = query ? `${API_BASE_URL}/search/movie?query=${query}` : `${API_BASE_URL}/movie/top_rated`;
-
         const response = await axios.get(url, API_HEADERS);
         setSearchResults(response.data?.results);
       } catch (error) {
@@ -57,12 +64,6 @@ const Home = () => {
     };
   }, [search, handleSearch]);
 
-  const { resolvedTheme } = useTheme();
-  const [color, setColor] = useState("#ffffff");
-
-  useEffect(() => {
-    setColor(resolvedTheme === "dark" ? "#ffffff" : "#000000");
-  }, [resolvedTheme]);
   return (
     <div className="space-y-6">
       <Dialog defaultOpen>
@@ -80,12 +81,20 @@ const Home = () => {
       <div className="grid grid-cols-2 gap-3 md:grid-cols-8 lg:grid-cols-12 ">
         <NavCard className="hidden md:block md:col-span-2" />
         <Showcase className="col-span-2 md:row-start-3 md:col-span-8 lg:row-start-2 z-10" />
-        <BlobedCard className="col-span-2 md:col-span-6 lg:col-span-6" />
-        <Card className="md:col-span-3 lg:col-span-3 z-10 grid">
-          <p className="text-2xl relative right-4 place-self-end">#2</p>
+        <BlobedCard movie={topThree?.[0]} className="col-span-2 md:col-span-6 lg:col-span-6" />
+        <Card
+          className="md:col-span-3 lg:col-span-3 z-10 grid bg-cover py-0"
+          style={{ backgroundImage: `url(https://image.tmdb.org/t/p/w500/${topThree?.[1]?.backdrop_path})` }}>
+          <p className="text-2xl font-semibold col-start-1 row-start-1 p-3">
+            {topThree?.[1]?.title && truncater({ text: topThree?.[1]?.title, limit: 20 })}
+          </p>
+          <div className="bg-gradient-to-t from-black/50 to-transparent col-start-1 row-start-1" />
+          <p className="text-2xl relative right-4 place-self-end col-start-1 row-start-1">#2</p>
         </Card>
-        <Card className="md:col-span-3 lg:col-span-1 z-10 grid">
-          <p className="text-2xl relative right-4 place-self-end">#3</p>
+        <Card
+          className="md:col-span-3 lg:col-span-1 z-10 grid bg-cover bg-center py-0"
+          style={{ backgroundImage: `url(https://image.tmdb.org/t/p/w500/${topThree?.[2]?.backdrop_path})` }}>
+          <p className="text-2xl relative right-2 place-self-end row-start-1 col-start-1">#3</p>
         </Card>
         <div className="col-span-2 grid gap-3 md:col-span-2 lg:col-span-4 z-10">
           <Card>
@@ -103,17 +112,23 @@ const Home = () => {
         <MarqueeSection movies={movies} />
       </div>
       {/* SEARCH SECTION */}
-      <div className="grid w-full h-full">
-        <Aurora colorStops={["#3A29FF", "#FF94B4", "#FF3232"]} blend={0.5} amplitude={1.0} speed={0.5} />
-        <div className="flex flex-col items-center gap-2">
+      <div className="grid w-full h-full gap-6">
+        <div className="absolute  w-[calc(100vw-3rem)]  -z-10">
+          <Aurora colorStops={["#3A29FF", "#FF94B4", "#FF3232"]} blend={0.8} amplitude={1.0} speed={0.3} />
+        </div>
+        <div className="flex items-center justify-around flex-col gap-2 mt-12">
+          <p className="text-2xl">Search for</p>
+          <p className="text-4xl font-semibold">Movie/TV Shows</p>
+        </div>
+        <div className="mx-44">
           <Input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search for a movie..." />
         </div>
-        <div className="grid grid-cols-5 gap-4 m-8">
+        <div className="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-2 gap-4">
           {searchResults?.length > 0 &&
             searchResults.map((movie, index) => (
               <motion.div
                 key={movie.id}
-                className="w-full h-full"
+                className="md:max-w-2xs"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: index * 0.1 }}>
