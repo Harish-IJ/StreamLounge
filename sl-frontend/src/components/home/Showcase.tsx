@@ -26,7 +26,7 @@ const Showcase = (props: React.HTMLAttributes<HTMLDivElement>) => {
             alt="Showcase"
           />
         </motion.div>
-        <HeroText className="self-end col-start-1 row-start-2 z-10" sm={sm} scrollYProgress={scrollYProgress} />
+        <HeroText className="self-end col-start-1 row-start-2 z-10" sm={sm} />
       </Card>
     </div>
   );

@@ -6,16 +6,17 @@ import Hyperspeed from "../magicui/HyperSpeed";
 
 interface HeroTextProps extends React.HTMLAttributes<HTMLDivElement> {
   sm: any;
-  scrollYProgress: any;
 }
 
 const HeroText = (props: HeroTextProps) => {
-  const { scrollYProgress, className, sm, ...rest } = props;
+  const { className, sm, ...rest } = props;
   return (
     <div {...rest} className={cn("space-y-3 pl-4 pb-3", className)}>
       <motion.div className="flex items-center gap-4">
         <p className="md:text-6xl font-semibold text-4xl">Find</p>
-        <div className="md:w-42 w-20 overflow-hidden rounded-full md:h-16 h-12 grid bg-background cursor-pointer">
+        <div
+          className="md:w-42 w-20 overflow-hidden rounded-full md:h-16 h-12 grid bg-background cursor-pointer"
+          title={"Delibrately used this"}>
           <div className="col-start-1 row-start-1">
             <Hyperspeed
               effectOptions={{

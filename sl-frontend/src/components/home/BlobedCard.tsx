@@ -1,10 +1,19 @@
 import { cn, truncater } from "@/lib/utils";
 import { Card } from "../ui/card";
-import { Movie } from "@/types";
+import { Movie, TVshow } from "@/types";
 
 interface BlobedCardProps extends React.ComponentProps<"div"> {
-  movie: Movie;
+  movie: Movie | TVshow;
 }
+
+const isMovie = (media: Movie | TVshow): media is Movie => {
+  if (media === null || media === undefined) return false;
+  return "title" in media;
+};
+
+const getTitle = (media: Movie | TVshow) => {
+  return isMovie(media) ? media?.title : media?.name;
+};
 
 const BlobedCard = (props: BlobedCardProps) => {
   return (
@@ -20,7 +29,7 @@ const BlobedCard = (props: BlobedCardProps) => {
         #1
       </p>
       <p className="row-start-1 col-start-1 backdrop-brightness-105 p-3 z-20 font-medium text-2xl">
-        {props?.movie?.title && truncater({ text: props?.movie?.title, limit: 20 })}
+        {getTitle(props?.movie) && truncater({ text: getTitle(props?.movie), limit: 20 })}
       </p>
       <div className="row-start-1 col-start-1 bg-gradient-to-r backdrop-blur-[0.5px] group-hover:backdrop-blur-none from-black/40 to-transparent z-10"></div>
       <p className="row-start-1 col-start-1 self-end italic text-xs p-4 z-20">Top Trending</p>

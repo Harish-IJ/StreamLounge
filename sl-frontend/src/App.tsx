@@ -4,6 +4,7 @@ import SideBar from "./components/appshell/SideBar";
 import { ThemeProvider } from "./components/ui/theme-provider";
 import { useEffect, useRef } from "react";
 import Lenis from "lenis";
+import Favorites from "./screens/Favorites";
 
 interface LenisOptions {
   duration: number;
@@ -40,6 +41,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<SideBar />}>
             <Route index element={<Home />} />
+            <Route path="favorites" element={<Favorites />} />
           </Route>
         </Routes>
       </ThemeProvider>
