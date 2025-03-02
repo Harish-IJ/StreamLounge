@@ -9,6 +9,7 @@ import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } 
 import React from "react";
 import { InteractiveHoverButton } from "../magicui/interactive-hover-button";
 import { BorderBeam } from "../magicui/border-beam";
+import StreamLoungeText from "@/assets/StreamLoungeText.svg";
 
 const NAVS = [
   {
@@ -33,9 +34,11 @@ const NavCard = (props: React.ComponentProps<"div">) => {
   // const { register, handleSubmit, formState, reset, control, setValue } = useForm();
   const navigate = useNavigate();
   return (
-    <Card {...props} className={cn(props?.className)}>
-      <CardHeader className="flex-row gap-0.5">
-        <span className="font-bold">Stream</span>Lounge
+    <Card {...props} className={cn(props?.className, "backdrop-blur-sm ")}>
+      <CardHeader>
+        <div>
+          <img src={StreamLoungeText} alt="StreamLounge" className="h-16" />
+        </div>
       </CardHeader>
       <CardContent className="space-y-2 px-1.5">
         <div className="mx-3">
