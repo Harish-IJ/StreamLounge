@@ -11,16 +11,6 @@ import { Input } from "@/components/ui/input";
 import { debounce } from "lodash";
 import Aurora from "@/components/magicui/Aurora";
 import { Movie, TVshow } from "@/types";
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
 import { motion, useScroll, useTransform } from "motion/react";
 import { truncater } from "@/lib/utils";
 import ShinyText from "@/components/magicui/ShinyText";
@@ -83,7 +73,7 @@ const Home = () => {
 
   React.useEffect(() => {
     axios
-      .get(`${API_BASE_URL}/search/movie?query=death note`, API_HEADERS)
+      .get(`${API_BASE_URL}/search/movie?query=Death Note Relight 1: Visions of a God`, API_HEADERS)
       ?.then((res) => setFavAnime(res.data?.results[0]))
       .catch((err) => console.log(err));
   }, []);
@@ -96,18 +86,6 @@ const Home = () => {
 
   return (
     <div className="space-y-6">
-      <Dialog defaultOpen>
-        <DialogContent>
-          <DialogTitle>Hey there 👋</DialogTitle>
-          <DialogHeader>Welcome to StreamLounge !</DialogHeader>
-          <DialogDescription>The site is in progress !</DialogDescription>
-          <DialogFooter>
-            <DialogClose asChild>
-              <Button>No judging now</Button>
-            </DialogClose>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
       <div className="grid grid-cols-2 gap-3 md:grid-cols-8 lg:grid-cols-12 ">
         <NavCard className="hidden md:block md:col-span-2" />
         <Showcase className="col-span-2 md:row-start-3 md:col-span-8 lg:row-start-2 z-10" />
@@ -201,6 +179,7 @@ const Home = () => {
         <div className="mx-44 grid">
           <Input
             value={search}
+            id="search-bar"
             className="row-start-1 col-start-1"
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search for a movie..."

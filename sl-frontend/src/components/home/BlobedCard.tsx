@@ -1,6 +1,7 @@
 import { cn, truncater } from "@/lib/utils";
 import { Card } from "../ui/card";
 import { Movie, TVshow } from "@/types";
+import React from "react";
 
 interface BlobedCardProps extends React.ComponentProps<"div"> {
   movie: Movie | TVshow;
@@ -37,4 +38,4 @@ const BlobedCard = (props: BlobedCardProps) => {
   );
 };
 
-export default BlobedCard;
+export default React.memo(BlobedCard);

@@ -19,7 +19,7 @@ const NAVS = [
   },
   {
     label: "Search",
-    route: "/search",
+    route: "/",
     icon: Search,
   },
   {
@@ -47,11 +47,18 @@ const NavCard = (props: React.ComponentProps<"div">) => {
         {NAVS.map((nav) => (
           <IconButton
             key={nav.label}
-            icon={<nav.icon className="mt-0.5" />}
-            variant="link"
-            className={""}
-            size="sm"
-            onClick={() => navigate(nav.route)}>
+            icon={<nav.icon className="mt-0.5" size={14} />}
+            onClick={() => {
+              navigate(nav.route);
+              if (nav.label === "Search") {
+                setTimeout(() => {
+                  const element = document.getElementById("search-bar");
+                  if (element) {
+                    element.scrollIntoView({ behavior: "smooth", block: "center" });
+                  }
+                }, 100);
+              }
+            }}>
             {nav.label}
           </IconButton>
         ))}
@@ -64,7 +71,9 @@ const NavCard = (props: React.ComponentProps<"div">) => {
           <DialogContent>
             <DialogTitle>Happy to see you hop around !!</DialogTitle>
             <DialogDescription>
-              Enter any name you like & a honest rating with a review is always appreciated
+              <p>
+                Im currently integrating a common feedback db for all my project showcase, So far its a work in progress
+              </p>
             </DialogDescription>
             <form></form>
             <BorderBeam
